@@ -8,6 +8,7 @@ if (process.env.NODE_ENV === "production") {
 }
 module.exports = {
   async up(queryInterface, Sequelize) {
+    options.tableName = "Users";
     /**
      * Add altering commands here.
      *
@@ -15,21 +16,16 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     await queryInterface.addColumn(
-      "Users",
+      options,
       "firstName",
       {
         type: Sequelize.STRING,
       },
       options
     );
-    queryInterface.addColumn(
-      "Users",
-      "lastName",
-      {
-        type: Sequelize.STRING,
-      },
-      options
-    );
+    queryInterface.addColumn(options, "lastName", {
+      type: Sequelize.STRING,
+    });
   },
 
   async down(queryInterface, Sequelize) {
