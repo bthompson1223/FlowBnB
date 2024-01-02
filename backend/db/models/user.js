@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: "spotId",
         through: models.Review,
       });
+      User.hasMany(models.Spot, {
+        foreignKey: "ownerId",
+        onDelete: "CASCADE",
+        hooks: true,
+      });
     }
   }
 
