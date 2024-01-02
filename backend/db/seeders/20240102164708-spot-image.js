@@ -19,23 +19,26 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
-    await SpotImage.bulkCreate([
-      {
-        spotId: 1,
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Baggins_residence_%27Bag_End%27_with_party_sign.jpg/1280px-Baggins_residence_%27Bag_End%27_with_party_sign.jpg",
-        preview: true,
-      },
-      {
-        spotId: 2,
-        url: "https://static.wikia.nocookie.net/lotr/images/0/0c/Isengard_after.jpeg/revision/latest/scale-to-width-down/1000?cb=20181209004208",
-        preview: true,
-      },
-      {
-        spotId: 3,
-        url: "https://static.wikia.nocookie.net/lotr/images/f/f9/Barad-dur.jpg/revision/latest/scale-to-width-down/1000?cb=20120303195552",
-        preview: true,
-      },
-    ]);
+    await SpotImage.bulkCreate(
+      [
+        {
+          spotId: 1,
+          url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Baggins_residence_%27Bag_End%27_with_party_sign.jpg/1280px-Baggins_residence_%27Bag_End%27_with_party_sign.jpg",
+          preview: true,
+        },
+        {
+          spotId: 2,
+          url: "https://static.wikia.nocookie.net/lotr/images/0/0c/Isengard_after.jpeg/revision/latest/scale-to-width-down/1000?cb=20181209004208",
+          preview: true,
+        },
+        {
+          spotId: 3,
+          url: "https://static.wikia.nocookie.net/lotr/images/f/f9/Barad-dur.jpg/revision/latest/scale-to-width-down/1000?cb=20120303195552",
+          preview: true,
+        },
+      ],
+      { validate: true }
+    );
   },
 
   async down(queryInterface, Sequelize) {
