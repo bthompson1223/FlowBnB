@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Spot, Review, SpotImage } = require("../../db/models");
+const { Spot, Review, SpotImage, User } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 
 router.get("/", async (req, res) => {
@@ -70,6 +70,45 @@ router.get("/current", requireAuth, async (req, res) => {
   res.json({
     Spots: results,
   });
+});
+
+router.get("/:spotId", async (req, res) => {
+  const id = req.params.spotId;
+  let spot = await Spot.findByPk(id);
+  if (!spot) {
+    return res.status(404).json({ message: "Spot couldn't be found" });
+  }
+  let owner = await User.findByPk(spot.ownerId, {
+    attributes: ["id", "firstName", "lastName"],
+  });
+  let images = await SpotImage.findAll({
+    where: {
+      spotId: id,
+    },
+  });
+  const numReviews = await Review.count({
+    where: {
+      spotId: id,
+    },
+  });
+
+  const totalRating = await Review.sum("stars", {
+    where: {
+      spotId: id,
+    },
+  });
+
+  const avgStarRating = totalRating / numReviews;
+
+  spot = spot.toJSON();
+  owner = owner.toJSON();
+
+  spot.numReviews = numReviews;
+  spot.avgStarRating = avgStarRating;
+  spot.SpotImages = images;
+  spot.Owner = owner;
+
+  res.json(spot);
 });
 
 module.exports = router;
