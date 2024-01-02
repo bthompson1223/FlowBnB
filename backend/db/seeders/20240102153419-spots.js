@@ -31,7 +31,7 @@ module.exports = {
           lng: 12.78943,
           name: "Baggins' House",
           description:
-            "Bag End is the luxurious home of Bilbo Baggins and later Frodo Baggins. The tunnel, or smial was built by Bilbo's father, Bungo Baggins as a wedding gift for his bride, Belladonna Took.",
+            "Bag End is the luxurious home of Bilbo Baggins and later Frodo Baggins.",
           price: 129.99,
         },
         {
@@ -44,7 +44,7 @@ module.exports = {
           lng: 36.78943,
           name: "Orthanc",
           description:
-            "Orthanc was the black, impenetrable tower of Isengard built by the Dúnedain. By the Great Years and the War of the Ring, it was the seat of power of the Wizard Saruman. It stood in the center of the Ring of Isengard, a daunting defensive wall built by the early Men of Gondor.",
+            "Orthanc was the black, impenetrable tower of Isengard built by the Dúnedain.",
           price: 324.99,
         },
         {
@@ -57,7 +57,7 @@ module.exports = {
           lng: 182.78943,
           name: "Barad-dûr",
           description:
-            "Barad-dûr was a tower built by Sauron as his central stronghold in Mordor, serving as his base of operations in Middle-earth in the Second Age and late Third Age.",
+            "Barad-dûr was a tower built by Sauron as his central stronghold in Mordor.",
           price: 99.99,
         },
       ],
