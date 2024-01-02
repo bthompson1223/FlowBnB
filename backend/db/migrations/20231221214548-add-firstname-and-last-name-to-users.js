@@ -31,7 +31,7 @@ module.exports = {
      * await queryInterface.dropTable('users');
      */
     options.tableName = "Users";
-    queryInterface.removeColumn(options, "firstName");
-    queryInterface.removeColumn(options, "lastName");
+    await queryInterface.removeColumn(options, "firstName");
+    await queryInterface.removeColumn(options, "lastName");
   },
 };
