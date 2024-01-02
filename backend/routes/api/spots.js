@@ -74,7 +74,7 @@ router.get("/", async (req, res) => {
     });
 
     currentSpot.avgRating = reviewAvg;
-    currentSpot.previewImage = previewImage.url;
+    currentSpot.previewImage = previewImage.url || null;
     results.push(currentSpot);
   }
   res.json({
@@ -236,6 +236,22 @@ router.put("/:spotId", requireAuth, checkSpotDetails, async (req, res) => {
 
   await spot.save();
   res.json(spot);
+});
+
+router.delete("/:spotId", requireAuth, async (req, res) => {
+  const { user } = req;
+  const spot = await Spot.findByPk(req.params.spotId);
+
+  if (!spot) {
+    return res.status(404).json({ message: "Spot couldn't be found" });
+  }
+  if (spot.ownerId !== user.id) {
+    return res.status(403).json({ message: "Forbidden" });
+  }
+
+  await spot.destroy();
+
+  res.json({ message: "Successfully deleted" });
 });
 
 module.exports = router;
