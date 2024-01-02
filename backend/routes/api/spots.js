@@ -2,6 +2,53 @@ const express = require("express");
 const router = express.Router();
 const { Spot, Review, SpotImage, User } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
+const { check } = require("express-validator");
+const { handleValidationErrors } = require("../../utils/validation");
+
+//middleware to validate spot info
+const checkSpotDetails = [
+  check("address")
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage("Street address is required"),
+  check("city")
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage("City is required"),
+  check("state")
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage("State is required"),
+  check("country")
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage("Country is required"),
+  check("lat")
+    .exists({ checkFalsy: true })
+    .isFloat({ min: -90, max: 90 })
+    .withMessage("Latitude is not valid"),
+  check("lng")
+    .exists({ checkFalsy: true })
+    .isFloat({ min: -180, max: 180 })
+    .withMessage("Longitude is not valid"),
+  check("name")
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage("Name is required"),
+  check("name")
+    .isLength({ max: 50 })
+    .withMessage("Name must be less than 50 character"),
+  check("description")
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .withMessage("Description is required"),
+  check("price")
+    .exists({ checkFalsy: true })
+    .notEmpty()
+    .isFloat({ min: 0 })
+    .withMessage("Price per day is required"),
+  handleValidationErrors,
+];
 
 router.get("/", async (req, res) => {
   const spots = await Spot.findAll();
@@ -109,6 +156,26 @@ router.get("/:spotId", async (req, res) => {
   spot.Owner = owner;
 
   res.json(spot);
+});
+
+router.post("/", requireAuth, checkSpotDetails, async (req, res) => {
+  const { user } = req;
+  const { address, city, state, country, lat, lng, name, description, price } =
+    req.body;
+  const newSpot = await Spot.create({
+    ownerId: user.id,
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+  });
+
+  res.status(201).json(newSpot);
 });
 
 module.exports = router;
