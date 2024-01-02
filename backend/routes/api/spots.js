@@ -194,6 +194,10 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
     return res.status(403).json({ message: "Forbidden" });
   }
 
+  if (!req.body.url) {
+    return res.status(400).json({ message: "URL is required" });
+  }
+
   let newImage = await spot.createSpotImage({
     url: req.body.url,
     preview: req.body.preview,
