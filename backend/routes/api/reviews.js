@@ -13,12 +13,15 @@ const { handleValidationErrors } = require("../../utils/validation");
 
 router.get("/current", requireAuth, async (req, res) => {
   const { user } = req;
-  console.log(user.id);
   let reviews = await Review.findAll({
     where: {
       userId: user.id,
     },
     include: [
+      {
+        model: User,
+        attributes: ["id", "firstName", "lastName"],
+      },
       {
         model: Spot,
         attributes: [
@@ -41,18 +44,29 @@ router.get("/current", requireAuth, async (req, res) => {
     ],
   });
 
-  reviews = reviews.toJSON();
-
-  const previewImage = await SpotImage.findOne({
-    where: {
-      spotId: reviews[1].id,
-    },
-    attributes: ["url"],
+  let reviewArr = [];
+  reviews.forEach((review) => {
+    review = review.toJSON();
+    reviewArr.push(review);
   });
 
-  reviews[1].previewImage = previewImage;
+  for (let i = 0; i < reviewArr.length; i++) {
+    const review = reviewArr[i];
+    const image = await SpotImage.findOne({
+      where: {
+        spotId: review.Spot.id,
+      },
+      attributes: ["url"],
+    });
+    review.Spot.previewImage = image.url;
+  }
 
-  res.json(reviews);
+  let result = {};
+  if (reviewArr.length) {
+    result.Reviews = reviewArr;
+  }
+
+  res.json(result);
 });
 
 module.exports = router;
