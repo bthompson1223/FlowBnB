@@ -111,4 +111,41 @@ router.post("/:reviewId(\\d+)/images", requireAuth, async (req, res) => {
   res.json(newImage);
 });
 
+router.put("/:reviewId(\\d+)", requireAuth, async (req, res) => {
+  const { user } = req;
+
+  const { review, stars } = req.body;
+
+  let query = await Review.findByPk(req.params.reviewId);
+
+  if (!query) {
+    return res.status(404).json({ message: "Review couldn't be found" });
+  }
+
+  if (query.userId !== user.id) {
+    return res.status(403).json({ message: "Forbidden" });
+  }
+
+  let errors = {};
+  if (!review) errors.review = "Review text is required";
+  if (parseInt(stars) < 1 || parseInt(stars) > 5 || !stars)
+    errors.stars = "Stars must be an integer from 1 to 5";
+  if (errors.review || errors.stars) {
+    return res.status(400).json({
+      message: "Bad request",
+      errors: {
+        review: errors.review,
+        stars: errors.stars,
+      },
+    });
+  }
+
+  query.review = review;
+  query.stars = stars;
+
+  await query.save();
+
+  res.json(query);
+});
+
 module.exports = router;
