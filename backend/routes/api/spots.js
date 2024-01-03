@@ -6,10 +6,12 @@ const {
   SpotImage,
   User,
   ReviewImage,
+  Booking,
 } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+const { Op } = require("sequelize");
 
 //middleware to validate spot info
 const checkSpotDetails = [
@@ -147,6 +149,45 @@ router.get("/:spotId(\\d+)/reviews", async (req, res) => {
   }
 
   res.json({ Reviews: reviews });
+});
+
+router.get("/:spotId/bookings", requireAuth, async (req, res) => {
+  const { user } = req;
+  const spot = await Spot.findByPk(req.params.spotId);
+
+  if (!spot) {
+    res.status(404).json({ message: "Spot couldn't be found" });
+  }
+
+  if (!user.id === spot.ownerId) {
+    const bookings = await Booking.findAll({
+      where: {
+        spotId: req.params.spotId,
+      },
+      attributes: ["spotId", "startDate", "endDate"],
+    });
+    return res.json(bookings);
+  } else {
+    const bookings = await Booking.findAll({
+      where: {
+        spotId: req.params.spotId,
+      },
+      include: {
+        model: User,
+        attributes: ["id", "firstName", "lastName"],
+      },
+      attributes: [
+        "id",
+        "spotId",
+        "userId",
+        "startDate",
+        "endDate",
+        "createdAt",
+        "updatedAt",
+      ],
+    });
+    res.json(bookings);
+  }
 });
 
 router.get("/:spotId(\\d+)", async (req, res) => {
@@ -288,6 +329,14 @@ router.post("/:spotId(\\d+)/reviews", requireAuth, async (req, res) => {
   });
 
   res.status(201).json(newReview);
+});
+
+router.post("/:spotId/bookings", requireAuth, async (req, res) => {
+  const { user } = req;
+  const spot = await Spot.findByPk(req.params.spotId);
+  if (user.id === spot.ownerId) {
+    res.status(403).json({ message: "Forbidden" });
+  }
 });
 
 router.put(

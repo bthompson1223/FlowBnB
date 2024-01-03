@@ -22,10 +22,10 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         hooks: true,
       });
-      Spot.belongsToMany(models.User, {
+      Spot.hasMany(models.Booking, {
         foreignKey: "spotId",
-        otherKey: "userId",
-        through: models.Booking,
+        onDelete: "CASCADE",
+        hooks: true,
       });
     }
   }
