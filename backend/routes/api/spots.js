@@ -76,9 +76,6 @@ const queryFilters = async (req, res, next) => {
   const err = {};
   err.message = "Bad Request";
   err.errors = {};
-  //   function isNumber(value) {
-  //     return typeof value === "number";
-  //   }
   if (page && page < 1) {
     err.errors.page = "Page must be greater than or equal to 1";
     tripped = true;
@@ -150,7 +147,7 @@ router.get("/", queryFilters, async (req, res) => {
         spotId: spots[i].dataValues.id,
       },
     });
-    const reviewAvg = reviewSum / totalReviews;
+    const reviewAvg = reviewSum / totalReviews || "Not yet reviewed";
 
     const previewImage = await SpotImage.findOne({
       where: {
@@ -190,7 +187,7 @@ router.get("/current", requireAuth, async (req, res) => {
         spotId: spots[i].dataValues.id,
       },
     });
-    const reviewAvg = reviewSum / totalReviews;
+    const reviewAvg = reviewSum / totalReviews || "Not yet reviewed";
 
     const previewImage = await SpotImage.findOne({
       where: {
