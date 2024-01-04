@@ -62,6 +62,8 @@ router.get("/current", requireAuth, async (req, res) => {
   let result = {};
   if (reviewArr.length) {
     result.Reviews = reviewArr;
+  } else {
+    result.Reviews = [];
   }
 
   res.json(result);

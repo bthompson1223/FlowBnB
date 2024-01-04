@@ -34,18 +34,18 @@ const checkSpotDetails = [
   check("lat")
     .exists({ checkFalsy: true })
     .isFloat({ min: -90, max: 90 })
-    .withMessage("Latitude is not valid"),
+    .withMessage("Latitude must be within -90 and 90"),
   check("lng")
     .exists({ checkFalsy: true })
     .isFloat({ min: -180, max: 180 })
-    .withMessage("Longitude is not valid"),
+    .withMessage("Longitude must be within -180 and 180"),
   check("name")
     .exists({ checkFalsy: true })
     .notEmpty()
     .withMessage("Name is required"),
   check("name")
     .isLength({ max: 50 })
-    .withMessage("Name must be less than 50 character"),
+    .withMessage("Name must be less than 50 characters, and is required"),
   check("description")
     .exists({ checkFalsy: true })
     .notEmpty()
@@ -54,7 +54,7 @@ const checkSpotDetails = [
     .exists({ checkFalsy: true })
     .notEmpty()
     .isFloat({ min: 0 })
-    .withMessage("Price per day is required"),
+    .withMessage("Price per day must be a positive number"),
   handleValidationErrors,
 ];
 
@@ -222,7 +222,9 @@ router.get("/:spotId(\\d+)/reviews", async (req, res) => {
     ],
   });
 
-  if (reviews.length === 0 || !reviews) {
+  const spot = await Spot.findByPk(req.params.spotId);
+
+  if (!spot) {
     return res.status(404).json({ message: "Spot couldn't be found" });
   }
 
@@ -236,16 +238,16 @@ router.get("/:spotId/bookings", requireAuth, async (req, res) => {
   if (!spot) {
     res.status(404).json({ message: "Spot couldn't be found" });
   }
-
-  if (!user.id === spot.ownerId) {
+  console.log("IDs ======>", user.id, spot.ownerId);
+  if (user.id !== spot.ownerId) {
     const bookings = await Booking.findAll({
       where: {
         spotId: req.params.spotId,
       },
       attributes: ["spotId", "startDate", "endDate"],
     });
-    return res.json(bookings);
-  } else {
+    return res.json({ Bookings: bookings });
+  } else if (user.id == spot.ownerId) {
     const bookings = await Booking.findAll({
       where: {
         spotId: req.params.spotId,
@@ -264,7 +266,7 @@ router.get("/:spotId/bookings", requireAuth, async (req, res) => {
         "updatedAt",
       ],
     });
-    res.json(bookings);
+    res.json({ Bookings: bookings });
   }
 });
 
