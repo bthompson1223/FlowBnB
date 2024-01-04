@@ -22,7 +22,28 @@ router.get("/current", requireAuth, async (req, res) => {
     },
   });
 
-  res.json({ Bookings: bookings });
+  const bookingsArr = [];
+
+  bookings.forEach((booking) => {
+    booking = booking.toJSON();
+    bookingsArr.push(booking);
+  });
+
+  for (let i = 0; i < bookingsArr.length; i++) {
+    const booking = bookingsArr[i];
+    const preview = await SpotImage.findOne({
+      where: {
+        spotId: booking.Spot.id,
+      },
+    });
+    booking.Spot.previewImage = preview.url;
+
+    delete booking.Spot.description;
+    delete booking.Spot.createdAt;
+    delete booking.Spot.updatedAt;
+  }
+
+  res.json({ Bookings: bookingsArr });
 });
 
 module.exports = router;
