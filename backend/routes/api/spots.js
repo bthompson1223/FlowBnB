@@ -82,7 +82,8 @@ router.get("/", async (req, res) => {
     });
 
     currentSpot.avgRating = reviewAvg;
-    currentSpot.previewImage = previewImage.url || null;
+    if (previewImage) currentSpot.previewImage = previewImage.url;
+    else currentSpot.previewImage = null;
     results.push(currentSpot);
   }
   res.json({
@@ -119,7 +120,8 @@ router.get("/current", requireAuth, async (req, res) => {
     });
 
     currentSpot.avgRating = reviewAvg;
-    currentSpot.previewImage = previewImage.url;
+    if (previewImage) currentSpot.previewImage = previewImage.url;
+    else currentSpot.previewImage = null;
     results.push(currentSpot);
   }
   res.json({
