@@ -302,7 +302,7 @@ router.get("/:spotId(\\d+)", async (req, res) => {
   owner = owner.toJSON();
 
   spot.numReviews = numReviews;
-  spot.avgStarRating = avgStarRating;
+  spot.avgStarRating = avgStarRating || "Not yet reviewed";
   spot.SpotImages = images;
   spot.Owner = owner;
 
