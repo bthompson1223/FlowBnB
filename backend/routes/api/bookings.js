@@ -22,7 +22,7 @@ router.get("/current", requireAuth, async (req, res) => {
     },
   });
 
-  res.json(bookings);
+  res.json({ Bookings: bookings });
 });
 
 module.exports = router;

@@ -333,10 +333,162 @@ router.post("/:spotId(\\d+)/reviews", requireAuth, async (req, res) => {
 
 router.post("/:spotId/bookings", requireAuth, async (req, res) => {
   const { user } = req;
+  const userId = user.id;
+
   const spot = await Spot.findByPk(req.params.spotId);
-  if (user.id === spot.ownerId) {
-    res.status(403).json({ message: "Forbidden" });
+  const body = req.body;
+
+  if (!spot) {
+    return res.status(404).json({ message: "Spot couldn't be found" });
   }
+
+  if (spot.ownerId === user.id) {
+    return res.status(403).json({ message: "Forbidden" });
+  }
+
+  const bookings = await Booking.findAll({
+    where: {
+      spotId: spot.id,
+    },
+  });
+
+  const newStart = new Date(body.startDate);
+  const newEnd = new Date(body.endDate);
+
+  if (newStart < Date.now()) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: {
+        startDate: "startDate cannot be in the past",
+      },
+    });
+  }
+
+  for (const currBooking of bookings) {
+    const currStartDate = new Date(currBooking.startDate);
+    const currEndDate = new Date(currBooking.endDate);
+
+    if (
+      newStart.getTime() === currStartDate.getTime() &&
+      newEnd.getTime() === currEndDate.getTime()
+    ) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: {
+          startDate: "Start date conflicts with an existing booking",
+          endDate: "End date conflicts with an existing booking",
+        },
+      });
+    }
+
+    if (newStart.getTime() === currStartDate.getTime()) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: {
+          startDate: "Start date conflicts with an existing booking",
+        },
+      });
+    }
+
+    if (newStart.getTime() === currEndDate.getTime()) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: {
+          startDate: "Start date conflicts with an existing booking",
+        },
+      });
+    }
+
+    if (newEnd.getTime() === currStartDate.getTime()) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: {
+          endDate: "End date conflicts with an existing booking",
+        },
+      });
+    }
+
+    if (newEnd.getTime() === currEndDate.getTime()) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: {
+          endDate: "End date conflicts with an existing booking",
+        },
+      });
+    }
+
+    if (newStart > currStartDate && newEnd < currEndDate) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: {
+          startDate: "Start date conflicts with an existing booking",
+          endDate: "End date conflicts with an existing booking",
+        },
+      });
+    }
+
+    if (newStart >= currStartDate && newStart < currEndDate) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: {
+          startDate: "Start date conflicts with an existing booking",
+        },
+      });
+    }
+
+    if (newEnd > currStartDate && newEnd <= currEndDate) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: {
+          endDate: "End date conflicts with an existing booking",
+        },
+      });
+    }
+
+    if (newStart <= currStartDate && newEnd >= currEndDate) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: {
+          startDate: "Start date conflicts with an existing booking",
+          endDate: "End date conflicts with an existing booking",
+        },
+      });
+    }
+  }
+
+  if (newStart.getTime() === newEnd.getTime()) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: {
+        startDate: "Start and end date are the same",
+        endDate: "Start and end date are the same",
+      },
+    });
+  }
+
+  if (newEnd.getTime() < newStart.getTime()) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: {
+        endDate: "End date cannot be before start date",
+      },
+    });
+  }
+
+  body.userId = userId;
+  body.spotId = spot.id;
+
+  const newBooking = await Booking.create(body);
+  await newBooking.save();
+  const formattedBooking = {
+    ...newBooking.dataValues,
+    startDate: newBooking.startDate,
+    endDate: newBooking.endDate,
+    createdAt: newBooking.createdAt,
+    updatedAt: newBooking.updatedAt,
+  };
+  // await formattedBooking.save()
+  res.json(formattedBooking);
 });
 
 router.put(
