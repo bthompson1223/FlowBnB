@@ -567,7 +567,7 @@ router.post("/:spotId/bookings", requireAuth, async (req, res) => {
     createdAt: newBooking.createdAt,
     updatedAt: newBooking.updatedAt,
   };
-  // await formattedBooking.save()
+
   res.json(formattedBooking);
 });
 
