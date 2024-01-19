@@ -54,7 +54,7 @@ module.exports = {
           state: "Mordor",
           country: "Middle Earth",
           lat: 154.23423,
-          lng: 182.78943,
+          lng: 172.78943,
           name: "Barad-dûr",
           description:
             "Barad-dûr was a tower built by Sauron as his central stronghold in Mordor.",
