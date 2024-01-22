@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Outlet, createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Outlet, createBrowserRouter, RouterProvider } from "react-router-dom";
 // import LoginFormPage from './components/LoginFormPage';
 // import SignupFormPage from './components/SignupFormPage';
-import Navigation from './components/Navigation/Navigation-bonus';
-import * as sessionActions from './store/session';
+import Navigation from "./components/Navigation/Navigation-bonus";
+import * as sessionActions from "./store/session";
+import LandingPage from "./components/LandingPage/LandingPage";
+import SpotInfo from "./components/SpotInfo/SpotInfo";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -12,7 +14,7 @@ function Layout() {
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => {
-      setIsLoaded(true)
+      setIsLoaded(true);
     });
   }, [dispatch]);
 
@@ -29,8 +31,12 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/',
-        element: <h1>Welcome!</h1>
+        path: "/",
+        element: <LandingPage />,
+      },
+      {
+        path: "/spots/:spotId",
+        element: <SpotInfo />,
       },
       // {
       //   path: 'login',
@@ -40,8 +46,8 @@ const router = createBrowserRouter([
       //   path: 'signup',
       //   element: <SignupFormPage />
       // }
-    ]
-  }
+    ],
+  },
 ]);
 
 function App() {
