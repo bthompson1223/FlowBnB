@@ -10,7 +10,7 @@ function SpotInfo() {
 
   useEffect(() => {
     dispatch(fetchSpotDetails(spotId));
-  }, [dispatch]);
+  }, [dispatch, spotId]);
   if (!spot) return null;
   if (!spot.SpotImages) return null;
   if (spot.id !== parseInt(spotId)) return null;
