@@ -37,7 +37,7 @@ function ManageSpots() {
           <p className="location">
             {spot.city}, {spot.state}
           </p>
-          <p className="price">${spot.price}.00 night</p>
+          <p className="price">${spot.price} night</p>
         </div>
         <div className="reviewSection">
           <div className="reviews">
