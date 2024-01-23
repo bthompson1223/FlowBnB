@@ -15,7 +15,7 @@ function DeleteModal({ spot }) {
     setSpotExists(false);
   };
 
-  const cancelDel = (e) => {
+  const cancelDelete = (e) => {
     e.preventDefault();
     closeModal();
   };
@@ -31,7 +31,7 @@ function DeleteModal({ spot }) {
           <button className="delete" onClick={delSpotModal}>
             Yes (Delete Spot)
           </button>
-          <button className="dontDelete" onClick={cancelDel}>
+          <button className="dontDelete" onClick={cancelDelete}>
             No (Keep Spot)
           </button>
         </div>
