@@ -7,15 +7,16 @@ import OpenModalButton from "../OpenModalButton/OpenModalButton";
 
 function ManageSpots() {
   const dispatch = useDispatch();
-  const spots = useSelector((state) => state.spots.allSpots.Spots);
+  const spots = useSelector((state) => state.spots);
   const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
     dispatch(fetchAllSpots());
   }, [dispatch]);
 
-  if (!spots) {
+  if (!spots.allSpots.Spots) {
     dispatch(fetchAllSpots());
+
     return null;
   }
 
@@ -23,7 +24,9 @@ function ManageSpots() {
     return <h1>You must be logged in to do that!</h1>;
   }
 
-  const usersSpots = spots.filter((spot) => spot.ownerId === user.id);
+  const usersSpots = spots?.allSpots.Spots.filter(
+    (spot) => spot.ownerId === user.id
+  );
 
   const usersSpotsDisplay = usersSpots?.map((spot) => (
     <div key={spot?.id} className="spotContain">

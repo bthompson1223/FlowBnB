@@ -11,8 +11,8 @@ function DeleteModal({ spot }) {
   const delSpotModal = (e) => {
     e.preventDefault();
     dispatch(deleteCurrentSpot(spot.id));
-    closeModal();
     setSpotExists(false);
+    closeModal();
   };
 
   const cancelDelete = (e) => {
