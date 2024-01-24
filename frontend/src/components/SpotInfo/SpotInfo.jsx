@@ -18,6 +18,10 @@ function SpotInfo() {
     alert("Feature Coming Soon");
   };
 
+  if (spot?.price) {
+    spot.price = parseFloat(spot.price).toFixed(2);
+  }
+
   let reviewsLabel;
   if (spot.numReviews === 1) reviewsLabel = "Review";
   if (spot.numReviews > 1) reviewsLabel = "Reviews";

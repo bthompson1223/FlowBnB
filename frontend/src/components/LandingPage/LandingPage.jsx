@@ -11,6 +11,13 @@ function LandingPage() {
     dispatch(fetchAllSpots());
   }, [dispatch]);
 
+  if (spots)
+    spots.allSpots?.Spots?.forEach((spot) => {
+      if (spot?.price) {
+        spot.price = parseFloat(spot.price).toFixed(2);
+      }
+    });
+
   const spotsContainer =
     spots.allSpots.Spots &&
     spots?.allSpots?.Spots.map((spot) => (

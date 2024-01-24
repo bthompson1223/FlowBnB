@@ -4,7 +4,11 @@ const GET_ALL_SPOTS = "spots/getAllSpots";
 
 const GET_SPOT_DETAILS = "spots/getSpotDetails";
 
+const CREATE_SPOT = "spots/createSpot";
+
 const UPDATE_SPOT = "spots/updateSpot";
+
+const CREATE_SI = "spot/createSI";
 
 const DELETE_SPOT = "spots/deleteSpot";
 
@@ -18,6 +22,20 @@ const getAllSpots = (payload) => {
 const getSpotDetails = (payload) => {
   return {
     type: GET_SPOT_DETAILS,
+    payload,
+  };
+};
+
+const createSpot = (payload) => {
+  return {
+    type: CREATE_SPOT,
+    payload,
+  };
+};
+
+const createSI = (payload) => {
+  return {
+    type: CREATE_SI,
     payload,
   };
 };
@@ -54,6 +72,40 @@ export const fetchSpotDetails = (spotId) => async (dispatch) => {
     return data;
   } catch (e) {
     return e;
+  }
+};
+
+export const createNewSpot = (payload) => async (dispatch) => {
+  try {
+    const res = await csrfFetch("/api/spots", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const spot = await res.json();
+    dispatch(createSpot(spot));
+    console.log("reducer spot creation: ", spot);
+    return spot;
+  } catch (errs) {
+    return errs;
+  }
+};
+
+export const newSpotImage = (img, spotId) => async (dispatch) => {
+  try {
+    const res = await csrfFetch(`/api/spots/${spotId}/images`, {
+      method: "POST",
+      body: JSON.stringify(img),
+    });
+
+    const newImg = await res.json();
+    dispatch(createSI(newImg));
+    return newImg;
+  } catch (errs) {
+    return errs;
   }
 };
 
