@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchReviews } from "../../store/reviews";
+import { fetchReviews, returnInitial } from "../../store/reviews";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import CreateReviewModal from "../CreateReview/CreateReview";
 import DeleteReview from "../DeleteReview/DeleteReview";
@@ -12,8 +12,8 @@ function Reviews({ spotId }) {
   const currReviews = useSelector((state) => state.reviews.spot.Reviews);
   const currUser = useSelector((state) => state.session.user);
 
-  // console.log("spot: ", spot)
-  // console.log("revs: ", currReviews)
+  console.log("spot: ", spot);
+  //   console.log("revs: ", currReviews);
   // console.log("user: ", currUser)
 
   const months = [
@@ -33,10 +33,11 @@ function Reviews({ spotId }) {
 
   useEffect(() => {
     dispatch(fetchReviews(spotId));
+    return () => dispatch(returnInitial());
   }, [dispatch, spotId]);
 
   if (!spot) return null;
-  if (!currReviews) return null;
+  if (!currReviews || !currReviews.length) return null;
   // if (!currUser) return null
 
   const orderRevs = [...currReviews].sort(
@@ -96,7 +97,9 @@ function Reviews({ spotId }) {
     <div className="revBox">
       <div className="revHeader">
         <i id="revDisplayStar" className="fa-solid fa-star"></i>
-        <div className="avgRate">{spot?.avgStarRating.toFixed(1)}</div>
+        <div className="avgRate">
+          {currReviews.length && spot?.avgStarRating?.toFixed(1)}
+        </div>
         <div>•</div>
         <div className="revNumDisp"> {spot.numReviews} </div>
         <div className="revLabelDisp"> {reviewsLabel}</div>

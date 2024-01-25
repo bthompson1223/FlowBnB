@@ -14,7 +14,7 @@ function DeleteReview({ spot, review }) {
 
   const deleteReview = () => {
     dispatch(deleteExistingReview(review.id));
-    // dispatch(fetchReviews(spot.id))
+
     dispatch(fetchSpotDetails(spot.id));
     closeModal();
   };

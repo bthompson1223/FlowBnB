@@ -1,0 +1,68 @@
+.profile-dropdown.hidden {
+  display: none;
+}
+
+.profile-dropdown {
+  /* position: fixed;
+  right: 28px; */
+  /* padding-top:20px; */
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 0px;
+  align-items: center;
+  padding: 5px 5px 5px 5px;
+}
+
+.menu {
+  border-radius: 30px;
+  padding: 10px 20px 10px 20px;
+  margin-right: 3.5rem;
+}
+
+.fa-user-circle {
+  padding-right: 5px;
+}
+
+.button {
+  display: flex;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.text {
+  padding-left: 0px;
+}
+
+.textEm {
+  padding-left: 0px;
+  margin-bottom: 8px;
+}
+
+.manageSpots {
+  padding-left: 0px;
+  /* text-decoration: none; */
+}
+
+.loButton {
+  padding-left: 0px;
+}
+
+.buttoncontainer {
+  padding: 5px 5px 5px 5px;
+  border-radius: 10px;
+}
+
+.manageNav {
+  text-decoration: none;
+  color: black;
+  border-top: 1px solid black;
+  padding-top: 3px;
+}
+
+ul {
+  list-style-type: none;
+}

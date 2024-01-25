@@ -1,18 +1,20 @@
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import ProfileButton from './ProfileButton-bonus';
-import './Navigation.css';
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import ProfileButton from "./ProfileButton-bonus";
+import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
-  const sessionUser = useSelector(state => state.session.user);
+  const sessionUser = useSelector((state) => state.session.user);
 
   return (
-    <ul>
+    <ul className="nav-container">
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/" className="logo">
+          FlowBnB
+        </NavLink>
       </li>
       {isLoaded && (
-        <li>
+        <li className="button-container">
           <ProfileButton user={sessionUser} />
         </li>
       )}

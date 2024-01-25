@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const GET_SPOT_REVS = "reviews/getReviews";
 const CREATE_REVIEW = "reviews/createReview";
 const DELETE_REVIEW = "reviews/deleteReview";
+const RETURN_INITIAL = "reviews/returnInitial";
 
 const getReviews = (payload) => {
   return {
@@ -22,6 +23,12 @@ const deleteReview = (payload) => {
   return {
     type: DELETE_REVIEW,
     payload,
+  };
+};
+
+export const returnInitial = () => {
+  return {
+    type: RETURN_INITIAL,
   };
 };
 
@@ -87,6 +94,9 @@ export const reviewsReducer = (state = initialState, action) => {
         (review) => review.id !== action.payload
       );
       return { ...state, spot: { Reviews: updatedReviews } };
+    }
+    case RETURN_INITIAL: {
+      return { ...initialState };
     }
     default:
       return state;

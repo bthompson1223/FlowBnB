@@ -4,12 +4,14 @@ import * as sessionActions from "../../store/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import "./ProfileButton.css";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+  const navigate = useNavigate();
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -36,20 +38,23 @@ function ProfileButton({ user }) {
     e.preventDefault();
     dispatch(sessionActions.logout());
     closeMenu();
+    navigate("/");
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button onClick={toggleMenu} className="menu">
         <i className="fas fa-user-circle" />
+        {/* <i className="fa-solid fa-bars"></i> */}
+        {/* <i className="fa-regular fa-user"></i> */}
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>Hello, {user.username}</li>
-            <li>{user.email}</li>
+            <li className="text">Hello, {user.username}</li>
+            <li className="textEm">{user.email}</li>
             <ul className="manageSpots">
               {" "}
               <NavLink
@@ -61,7 +66,9 @@ function ProfileButton({ user }) {
               </NavLink>
             </ul>
             <li>
-              <button onClick={logout}>Log Out</button>
+              <button onClick={logout} className="loButton">
+                Log Out
+              </button>
             </li>
           </>
         ) : (
