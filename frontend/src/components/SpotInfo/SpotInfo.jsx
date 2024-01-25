@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchSpotDetails } from "../../store/spots";
+import Reviews from "../Reviews/Reviews";
 
 function SpotInfo() {
   const { spotId } = useParams();
@@ -109,7 +110,7 @@ function SpotInfo() {
           </div>
         </div>
       </div>
-      {/* <Reviews spotId={spotId} /> */}
+      <Reviews spotId={spotId} />
     </div>
   );
 }
