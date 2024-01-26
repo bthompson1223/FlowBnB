@@ -87,7 +87,6 @@ export const createNewSpot = (payload) => async (dispatch) => {
 
     const spot = await res.json();
     dispatch(createSpot(spot));
-    console.log("reducer spot creation: ", spot);
     return spot;
   } catch (errs) {
     return errs;
