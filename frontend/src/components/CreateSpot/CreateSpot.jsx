@@ -53,6 +53,8 @@ function CreateSpot() {
       errs.push("Valid Longitude is required");
     if (description.length < 30)
       errs.push("Description must be at least 30 characters");
+    if (description.length > 250)
+      errs.push("Description must be under 250 characters");
     if (!name) errs.push("Title is required");
     if (!price) errs.push("Price is required");
     if (!prevImg) errs.push("Preview image is required");
