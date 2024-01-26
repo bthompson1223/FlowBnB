@@ -42,12 +42,6 @@ const router = createBrowserRouter([
       {
         path: "/spots/:spotId",
         element: <SpotInfo />,
-        children: [
-          {
-            path: "/spots/*",
-            element: <h1>404 Not Found</h1>,
-          },
-        ],
       },
       {
         path: "/spots/current",
