@@ -10,6 +10,7 @@ import SpotInfo from "./components/SpotInfo/SpotInfo";
 import ManageSpots from "./components/ManageSpots/ManageSpots";
 import UpdateSpot from "./components/UpdateSpot/UpdateSpot";
 import CreateSpot from "./components/CreateSpot/CreateSpot";
+import { Modal } from "./context/Modal";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function Layout() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+      <Modal />
       {isLoaded && <Outlet />}
     </>
   );
