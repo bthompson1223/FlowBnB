@@ -119,7 +119,7 @@ function UpdateSpot() {
       <form className="update-spot-form" onSubmit={handleUpdate}>
         <div>
           <div>
-            <h1>Update a Spot</h1>
+            <h1>Update Your Spot</h1>
             <h2>Wheres your place located?</h2>
             <p>
               Guests will only get your exact address once they booked a
@@ -332,7 +332,7 @@ function UpdateSpot() {
         </div>
         <div>
           <button type="submit" className="uas" onClick={validateInputs}>
-            Update Spot
+            Update Your Spot
           </button>
         </div>
       </form>

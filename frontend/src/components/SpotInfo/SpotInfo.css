@@ -119,6 +119,7 @@
   width: 620px;
   display: flex;
   flex-wrap: wrap;
+  margin-top: 10px;
 }
 
 .details {
@@ -131,4 +132,13 @@
   width: 600px;
   margin-top: -16px;
   padding-bottom: 15px;
+}
+
+.reviewInfo {
+  display: flex;
+  flex-direction: row;
+}
+
+.dot {
+  margin-left: 8px;
 }

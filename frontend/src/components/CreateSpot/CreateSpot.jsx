@@ -163,8 +163,8 @@ function CreateSpot() {
       <form className="create-spot-form" onSubmit={handleSubmit}>
         <div>
           <div>
-            <h1>Create A Spot</h1>
-            <h2>Wheres your place located?</h2>
+            <h1>Create A New Spot</h1>
+            <h2>Where&apos;s your place located?</h2>
             <p>
               Guests will only get your exact address once they booked a
               reservation
@@ -172,7 +172,7 @@ function CreateSpot() {
           </div>
           <label>
             <div className="title-errors">
-              <p className="locaInputs">Country</p>
+              <p className="location-inputs">Country</p>
               <p className="error">
                 {errors.find((error) => error && error.includes("Country"))}
               </p>
@@ -188,7 +188,7 @@ function CreateSpot() {
           </label>
           <label>
             <div className="title-errors">
-              <p className="locaInputs">Address</p>
+              <p className="location-inputs">Address</p>
               <p className="error">
                 {errors.find((error) => error.includes("Address"))}
               </p>
@@ -201,9 +201,9 @@ function CreateSpot() {
               onChange={(e) => setAddress(e.target.value)}
             ></input>
           </label>
-          <label className="citystate">
+          <label>
             <div className="title-errors">
-              <p className="locaInputs">City</p>
+              <p className="location-inputs">City</p>
               <p className="error">
                 {errors.find((error) => error.includes("Address"))}
               </p>
@@ -216,7 +216,7 @@ function CreateSpot() {
               onChange={(e) => setCity(e.target.value)}
             ></input>
             <div className="title-errors">
-              <p className="locaInputs">State</p>
+              <p className="location-inputs">State</p>
               <p className="error">
                 {errors.find((error) => error.includes("Address"))}
               </p>
@@ -229,28 +229,28 @@ function CreateSpot() {
               onChange={(e) => setState(e.target.value)}
             ></input>
           </label>
-          <label className="latlng">
+          <label>
             <div className="title-errors">
-              <p className="locaInputs">Latitude</p>
+              <p className="location-inputs">Latitude</p>
               <p className="error">
                 {errors.find((error) => error.includes("Latitude"))}
               </p>
             </div>
             <input
-              type="text"
+              type="number"
               placeholder="Latitude"
               className="lat input-create"
               value={lat}
               onChange={(e) => setLat(e.target.value)}
             ></input>
             <div className="title-errors">
-              <p className="locaInputs">Longitude</p>
+              <p className="location-inputs">Longitude</p>
               <p className="error">
                 {errors.find((error) => error.includes("Longitude"))}
               </p>
             </div>
             <input
-              type="text"
+              type="number"
               placeholder="Longitude"
               className="lng input-create"
               value={lng}
@@ -265,7 +265,7 @@ function CreateSpot() {
             fast wifi or parking, and what you love about the neighborhood
           </p>
           <div className="title-errors">
-            <p className="locaInputs">Description</p>
+            <p className="location-inputs">Description</p>
             <p className="error">
               {errors.find((error) => error.includes("Description"))}
             </p>
@@ -285,7 +285,7 @@ function CreateSpot() {
             your place special.
           </p>
           <div className="title-errors">
-            <p className="locaInputs">Title</p>
+            <p className="location-inputs">Title</p>
             <p className="error">
               {errors.find((error) => error.includes("Title"))}
             </p>
@@ -305,7 +305,7 @@ function CreateSpot() {
             in search results.
           </p>
           <div className="title-errors">
-            <p className="locaInputs">Price</p>
+            <p className="location-inputs">Price</p>
             <p className="error">
               {errors.find((error) => error.includes("Price"))}
             </p>
@@ -313,7 +313,7 @@ function CreateSpot() {
           <div className="price-div">
             ${" "}
             <input
-              type="text"
+              type="number"
               placeholder="Price per night(USD)"
               className="price-input input-create"
               value={price}
@@ -325,7 +325,7 @@ function CreateSpot() {
           <h2>Liven up your spot with photos</h2>
           <p>Submit a link to at least one photo to publish your spot</p>
           <div className="title-errors">
-            <p className="locaInputs">Preview Image</p>
+            <p className="location-inputs">Preview Image</p>
             <p className="error">
               {errors.find((error) => error.includes("Preview"))}
             </p>
@@ -340,7 +340,7 @@ function CreateSpot() {
             onChange={(e) => setPrevImg(e.target.value)}
             className="input-create"
           ></input>
-          <p className="locaInputs">Image 1</p>
+          <p className="location-inputs">Image 1</p>
           <input
             type="text"
             placeholder="Image URL"
@@ -348,7 +348,7 @@ function CreateSpot() {
             onChange={(e) => setImgTwo(e.target.value)}
             className="input-create"
           ></input>
-          <p className="locaInputs">Image 2</p>
+          <p className="location-inputs">Image 2</p>
           <input
             type="text"
             placeholder="Image URL"
@@ -356,7 +356,7 @@ function CreateSpot() {
             onChange={(e) => setImgThree(e.target.value)}
             className="input-create"
           ></input>
-          <p className="locaInputs">Image 3</p>
+          <p className="location-inputs">Image 3</p>
           <input
             type="text"
             placeholder="Image URL"
@@ -364,7 +364,7 @@ function CreateSpot() {
             onChange={(e) => setImgFour(e.target.value)}
             className="input-create"
           ></input>
-          <p className="locaInputs">Image 4</p>
+          <p className="location-inputs">Image 4</p>
           <input
             type="text"
             placeholder="Image URL"

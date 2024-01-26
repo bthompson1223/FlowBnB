@@ -13,8 +13,8 @@ function Reviews({ spotId }) {
   const currReviews = useSelector((state) => state.reviews.spot.Reviews);
   const currUser = useSelector((state) => state.session.user);
 
-  //   console.log("spot: ", spot);
-  //   console.log("revs: ", currReviews);
+  // console.log("spot: ", spot);
+  // console.log("revs: ", currReviews);
   // console.log("user: ", currUser)
 
   const months = [
@@ -46,6 +46,16 @@ function Reviews({ spotId }) {
       new Date(nextReview.createdAt) - new Date(review.createdAt)
   );
 
+  let sum = 0;
+  let avg = "";
+  if (currReviews.length) {
+    currReviews.forEach((rev) => (sum += rev.stars));
+  }
+  if (sum) avg = sum / currReviews.length;
+
+  // console.log(sum);
+  // console.log(avg);
+
   let ownerCheck = false;
   if (spot && spot.Owner && currUser) {
     ownerCheck = spot.Owner.id === currUser.id;
@@ -72,7 +82,7 @@ function Reviews({ spotId }) {
 
   if (!currReviews.length) {
     return (
-      <div className="revBox">
+      <div className="rev-box">
         <div className="rev-header">
           <i className="fa-solid fa-star"></i>
 
@@ -95,14 +105,12 @@ function Reviews({ spotId }) {
   }
 
   return (
-    <div className="revBox">
+    <div className="rev-box">
       <div className="rev-header">
         <i id="rev-display-star" className="fa-solid fa-star"></i>
-        <div className="avg-rating">
-          {currReviews.length && spot?.avgStarRating?.toFixed(1)}
-        </div>
+        <div className="avg-rating">{currReviews.length && avg.toFixed(1)}</div>
         <div>•</div>
-        <div className="rev-num-disp"> {spot.numReviews} </div>
+        <div className="rev-num-disp"> {currReviews.length} </div>
         <div className="rev-label-disp"> {reviewsLabel}</div>
       </div>
       {loggedIn && !ownerCheck && notReviewedState && (
@@ -113,31 +121,27 @@ function Reviews({ spotId }) {
         />
       )}
       <div className="review-list">
-        {orderRevs
-          .map((review) => (
-            <div key={review.id} className="single-rev">
-              <div className="user-display">{review.User.firstName}</div>
-              <div className="date">
-                <div className="month">
-                  {months[new Date(review.createdAt).getMonth()]}
-                </div>
-                <div className="year">{review.createdAt.slice(6, 10)}</div>
+        {orderRevs.map((review) => (
+          <div key={review.id} className="single-rev">
+            <div className="user-display">{review.User.firstName}</div>
+            <div className="date">
+              <div className="month">
+                {months[new Date(review.createdAt).getMonth()]}
               </div>
-              <div className="review-text">{review.review}</div>
-              {currUser && currUser.id === review.User.id ? (
-                <div className="del-rev-button-box">
-                  <OpenModalButton
-                    className="delRevButton"
-                    buttonText="Delete Review"
-                    modalComponent={
-                      <DeleteReview review={review} spot={spot} />
-                    }
-                  />
-                </div>
-              ) : null}
+              <div className="year">{review.createdAt.slice(0, 4)}</div>
             </div>
-          ))
-          .reverse()}
+            <div className="review-text">{review.review}</div>
+            {currUser && currUser.id === review.User.id ? (
+              <div className="del-rev-button-box">
+                <OpenModalButton
+                  className="delRevButton"
+                  buttonText="Delete Review"
+                  modalComponent={<DeleteReview review={review} spot={spot} />}
+                />
+              </div>
+            ) : null}
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -22,8 +22,8 @@ function LandingPage() {
   const spotsContainer =
     spots.allSpots.Spots &&
     spots?.allSpots?.Spots.map((spot) => (
-      <div key={spot.id} className="spot-container">
-        <NavLink to={`/spots/${spot.id}`}>
+      <NavLink to={`/spots/${spot.id}`} key={spot.id}>
+        <div className="spot-container">
           <div>
             <div className="toolTip" title={spot.name}>
               <img src={spot.previewImage} className="prev-img" />
@@ -45,8 +45,8 @@ function LandingPage() {
               )}
             </div>
           </div>
-        </NavLink>
-      </div>
+        </div>
+      </NavLink>
     ));
 
   return (

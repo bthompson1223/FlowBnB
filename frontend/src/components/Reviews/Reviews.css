@@ -1,4 +1,4 @@
-.revBox {
+.rev-box {
   display: flex;
   flex-direction: column;
 }
@@ -45,6 +45,7 @@
 .avg-rating {
   padding-right: 8px;
   font-weight: bold;
+  margin-left: 5px;
 }
 
 .rev-num-disp {
