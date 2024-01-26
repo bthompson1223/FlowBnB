@@ -55,6 +55,10 @@ const router = createBrowserRouter([
         path: "/spots/new",
         element: <CreateSpot />,
       },
+      {
+        path: "*",
+        element: <h1>404 Not Found</h1>,
+      },
       // {
       //   path: 'login',
       //   element: <LoginFormPage />
