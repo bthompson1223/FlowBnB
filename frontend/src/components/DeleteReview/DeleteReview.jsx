@@ -3,6 +3,7 @@ import { useModal } from "../../context/Modal";
 import { useEffect } from "react";
 import { deleteExistingReview, fetchReviews } from "../../store/reviews";
 import { fetchSpotDetails } from "../../store/spots";
+import "./DeleteReview.css";
 
 function DeleteReview({ spot, review }) {
   const dispatch = useDispatch();
@@ -26,13 +27,13 @@ function DeleteReview({ spot, review }) {
   if (!review) return null;
 
   return (
-    <div className="deleteRevModal">
-      <h2 className="confirmationHeader">Confirm Deletion</h2>
-      <p className="areYouSure">Are you sure you want to delete this review?</p>
-      <button className="deleteRev" onClick={deleteReview}>
+    <div className="delete-rev-modal">
+      <h2 className="confirmation-header">Confirm Deletion</h2>
+      <p>Are you sure you want to delete this review?</p>
+      <button className="delete-rev" onClick={deleteReview}>
         Yes (Delete Review)
       </button>
-      <button className="cancelDel" onClick={cancelDelete}>
+      <button className="cancel-del" onClick={cancelDelete}>
         No (Keep Review)
       </button>
     </div>

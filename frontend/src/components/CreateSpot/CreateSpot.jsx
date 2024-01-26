@@ -8,6 +8,8 @@ import {
   fetchSpotDetails,
 } from "../../store/spots";
 
+import "./CreateSpot.css";
+
 function CreateSpot() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
@@ -41,7 +43,7 @@ function CreateSpot() {
   }, [dispatch, user]);
 
   function validateInputs() {
-    console.log("Validate is running");
+    // console.log("Validate is running");
     if (!country) errs.push("Country is required");
     if (!address) errs.push("Address is required");
     if (!city) errs.push("City is required");
@@ -67,12 +69,12 @@ function CreateSpot() {
       if (!validExt) errs.push("Image must have a valid extension");
     }
     setErrors(errs);
-    console.log(errors);
+    // console.log(errors);
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("handle submit is running");
+    // console.log("handle submit is running");
     const spot = {
       ownerId: user.id,
       country,
@@ -88,20 +90,20 @@ function CreateSpot() {
 
     const priceTest = spot.price.split(".");
     if (!priceTest[1]) spot.price = parseFloat(`${spot.price}`);
-    console.log("Price test", priceTest);
-    console.log("Spot price", spot.price);
-    console.log("This is the spot: ", spot);
+    // console.log("Price test", priceTest);
+    // console.log("Spot price", spot.price);
+    // console.log("This is the spot: ", spot);
     const previewImg = {
       url: prevImg,
       preview: true,
     };
-    console.log(errors);
+    // console.log(errors);
     if (!errors.length) {
-      console.log("preres");
+      // console.log("preres");
       const res = await dispatch(createNewSpot(spot));
-      console.log("inside if statement");
+      // console.log("inside if statement");
       if (res) dispatch(newSpotImage(previewImg, res.id));
-      console.log("res spot", res);
+      // console.log("res spot", res);
 
       if (imgTwo) {
         const newImg = {
@@ -132,8 +134,8 @@ function CreateSpot() {
         dispatch(newSpotImage(newImg, res.id));
       }
 
-      console.log("Spot post imgs: ", spot);
-      console.log("prenav");
+      // console.log("Spot post imgs: ", spot);
+      // console.log("prenav");
       dispatch(fetchSpotDetails(res.id));
       navigate(`/spots/${res.id}`);
 
@@ -155,10 +157,10 @@ function CreateSpot() {
   };
 
   return (
-    <div className="formContainer">
-      <form className="createSpotForm" onSubmit={handleSubmit}>
-        <div className="firstBox">
-          <div className="formText">
+    <div>
+      <form className="create-spot-form" onSubmit={handleSubmit}>
+        <div>
+          <div>
             <h1>Create A Spot</h1>
             <h2>Wheres your place located?</h2>
             <p>
@@ -167,7 +169,7 @@ function CreateSpot() {
             </p>
           </div>
           <label>
-            <div className="titleAndErrors">
+            <div className="title-errors">
               <p className="locaInputs">Country</p>
               <p className="error">
                 {errors.find((error) => error && error.includes("Country"))}
@@ -176,15 +178,14 @@ function CreateSpot() {
             <input
               type="text"
               placeholder="Country"
-              className="country"
-              id="inputCreate"
+              className="country input-create"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
               required
             ></input>
           </label>
           <label>
-            <div className="titleAndErrors">
+            <div className="title-errors">
               <p className="locaInputs">Address</p>
               <p className="error">
                 {errors.find((error) => error.includes("Address"))}
@@ -193,14 +194,13 @@ function CreateSpot() {
             <input
               type="text"
               placeholder="Address"
-              className="address"
-              id="inputCreate"
+              className="address input-create"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             ></input>
           </label>
           <label className="citystate">
-            <div className="titleAndErrors">
+            <div className="title-errors">
               <p className="locaInputs">City</p>
               <p className="error">
                 {errors.find((error) => error.includes("Address"))}
@@ -209,12 +209,11 @@ function CreateSpot() {
             <input
               type="text"
               placeholder="City"
-              className="city"
-              id="inputCreate"
+              className="city input-create"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             ></input>
-            <div className="titleAndErrors">
+            <div className="title-errors">
               <p className="locaInputs">State</p>
               <p className="error">
                 {errors.find((error) => error.includes("Address"))}
@@ -223,14 +222,13 @@ function CreateSpot() {
             <input
               type="text"
               placeholder="State"
-              className="state"
-              id="inputCreate"
+              className="state input-create"
               value={state}
               onChange={(e) => setState(e.target.value)}
             ></input>
           </label>
           <label className="latlng">
-            <div className="titleAndErrors">
+            <div className="title-errors">
               <p className="locaInputs">Latitude</p>
               <p className="error">
                 {errors.find((error) => error.includes("Latitude"))}
@@ -239,12 +237,11 @@ function CreateSpot() {
             <input
               type="text"
               placeholder="Latitude"
-              className="lat"
-              id="inputCreate"
+              className="lat input-create"
               value={lat}
               onChange={(e) => setLat(e.target.value)}
             ></input>
-            <div className="titleAndErrors">
+            <div className="title-errors">
               <p className="locaInputs">Longitude</p>
               <p className="error">
                 {errors.find((error) => error.includes("Longitude"))}
@@ -253,8 +250,7 @@ function CreateSpot() {
             <input
               type="text"
               placeholder="Longitude"
-              className="lng"
-              id="inputCreate"
+              className="lng input-create"
               value={lng}
               onChange={(e) => setLng(e.target.value)}
             ></input>
@@ -266,7 +262,7 @@ function CreateSpot() {
             Mention the best features of your space, any special amentities like
             fast wifi or parking, and what you love about the neighborhood
           </p>
-          <div className="titleAndErrors">
+          <div className="title-errors">
             <p className="locaInputs">Description</p>
             <p className="error">
               {errors.find((error) => error.includes("Description"))}
@@ -275,8 +271,7 @@ function CreateSpot() {
           <textarea
             type="text"
             placeholder="Please write at least 30 characters"
-            className="desc"
-            id="inputCreate"
+            className="desc input-create"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
@@ -287,7 +282,7 @@ function CreateSpot() {
             Catch guests attention with a spot title that highlights what makes
             your place special.
           </p>
-          <div className="titleAndErrors">
+          <div className="title-errors">
             <p className="locaInputs">Title</p>
             <p className="error">
               {errors.find((error) => error.includes("Title"))}
@@ -296,9 +291,9 @@ function CreateSpot() {
           <input
             type="text"
             placeholder="Name of your spot"
-            id="inputCreate"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className="input-create"
           ></input>
         </div>
         <div className="priceBox">
@@ -307,19 +302,18 @@ function CreateSpot() {
             Competitive pricing can help your listing stand out and rank higher
             in search results.
           </p>
-          <div className="titleAndErrors">
+          <div className="title-errors">
             <p className="locaInputs">Price</p>
             <p className="error">
               {errors.find((error) => error.includes("Price"))}
             </p>
           </div>
-          <div className="priceDiv">
+          <div className="price-div">
             ${" "}
             <input
               type="text"
               placeholder="Price per night(USD)"
-              id="inputCreate"
-              className="priceInput"
+              className="price-input input-create"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             ></input>
@@ -328,7 +322,7 @@ function CreateSpot() {
         <div className="updateImgs">
           <h2>Liven up your spot with photos</h2>
           <p>Submit a link to at least one photo to publish your spot</p>
-          <div className="titleAndErrors">
+          <div className="title-errors">
             <p className="locaInputs">Preview Image</p>
             <p className="error">
               {errors.find((error) => error.includes("Preview"))}
@@ -340,41 +334,41 @@ function CreateSpot() {
           <input
             type="text"
             placeholder="Preview Image URL"
-            id="inputCreate"
             value={prevImg}
             onChange={(e) => setPrevImg(e.target.value)}
+            className="input-create"
           ></input>
           <p className="locaInputs">Image 1</p>
           <input
             type="text"
             placeholder="Image URL"
-            id="inputCreate"
             value={imgTwo}
             onChange={(e) => setImgTwo(e.target.value)}
+            className="input-create"
           ></input>
           <p className="locaInputs">Image 2</p>
           <input
             type="text"
             placeholder="Image URL"
-            id="inputCreate"
             value={imgThree}
             onChange={(e) => setImgThree(e.target.value)}
+            className="input-create"
           ></input>
           <p className="locaInputs">Image 3</p>
           <input
             type="text"
             placeholder="Image URL"
-            id="inputCreate"
             value={imgFour}
             onChange={(e) => setImgFour(e.target.value)}
+            className="input-create"
           ></input>
           <p className="locaInputs">Image 4</p>
           <input
             type="text"
             placeholder="Image URL"
-            id="inputCreate"
             value={imgFive}
             onChange={(e) => setImgFive(e.target.value)}
+            className="input-create"
           ></input>
         </div>
         <div className="casButton">

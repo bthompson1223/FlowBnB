@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useModal } from '../../context/Modal';
-import * as sessionActions from '../../store/session';
-import './SignupForm.css';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
+import * as sessionActions from "../../store/session";
+import "./SignupForm.css";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function SignupFormModal() {
           username,
           firstName,
           lastName,
-          password
+          password,
         })
       )
         .then(closeModal)
@@ -37,77 +37,101 @@ function SignupFormModal() {
         });
     }
     return setErrors({
-      confirmPassword: "Confirm Password field must be the same as the Password field"
+      confirmPassword:
+        "Confirm Password field must be the same as the Password field",
     });
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
+    <div className="signup-container">
+      <h1 className="login-signup">Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Email
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            placeholder="Enter Your Email"
+            className="input"
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className="input-error">{errors.email}</p>}
         <label>
-          Username
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            placeholder="Enter Your Username"
+            className="input"
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && <p className="input-error">{errors.username}</p>}
         <label>
-          First Name
           <input
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
+            placeholder="Enter Your First Name"
+            className="input"
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
+        {errors.firstName && <p className="input-error">{errors.firstName}</p>}
         <label>
-          Last Name
           <input
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
+            placeholder="Enter Your Last Name"
+            className="input"
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
+        {errors.lastName && <p className="input-error">{errors.lastName}</p>}
         <label>
-          Password
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="Enter Your Password"
+            className="input"
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className="input-error">{errors.password}</p>}
         <label>
-          Confirm Password
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
+            placeholder="Confirm Your Password"
+            className="input"
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        {errors.confirmPassword && (
+          <p className="input-error">{errors.confirmPassword}</p>
+        )}
+        <button
+          type="submit"
+          disabled={
+            !confirmPassword ||
+            !email ||
+            !username ||
+            !firstName ||
+            !lastName ||
+            !password ||
+            username.length < 4 ||
+            password.length < 6
+          }
+          className="signup-button"
+        >
+          Sign Up
+        </button>
       </form>
-    </>
+    </div>
   );
 }
 

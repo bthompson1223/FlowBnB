@@ -1,0 +1,134 @@
+#spot-info-display {
+  display: flex;
+  justify-content: center;
+  max-width: 1000px;
+  margin: auto;
+  flex-direction: column;
+
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.spot-name {
+  display: flex;
+}
+
+.other-imgs {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: fit-content;
+}
+
+.other-imgs2 {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: fit-content;
+}
+
+.extras {
+  display: flex;
+  border-radius: 2px;
+}
+
+.imgs {
+  display: flex;
+}
+
+.main-img {
+  width: 500px;
+  height: 310px;
+  border-radius: 2px;
+  border: 2px solid black;
+  margin-top: 3px;
+}
+
+.additional-img {
+  display: flex;
+  width: 240px;
+  height: 150px;
+}
+
+.reserve {
+  display: inline-flex;
+  border: 3px solid black;
+  border-radius: 20px;
+  flex-direction: column;
+  width: 350px;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  height: fit-content;
+  background-color: white;
+}
+
+.not-button {
+  display: flex;
+}
+
+.res-info {
+  display: flex;
+  width: 350px;
+  justify-content: space-between;
+  margin: 0px 20px 0px 20px;
+  align-items: center;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.res-button {
+  display: flex;
+  width: 250px;
+  margin-left: 50px;
+  cursor: pointer;
+  justify-content: center;
+  color: white;
+  box-shadow: 2px 2px black;
+  border: 3px solid black;
+  padding: 12px 0px 12px 0px;
+  background-color: #1a5824;
+}
+
+.extra1 {
+  border: 2px solid black;
+  margin: 3px 3px 3px 3px;
+}
+
+.extra2 {
+  border: 2px solid black;
+  margin: 3px 3px 3px 3px;
+}
+
+.extra3 {
+  border: 2px solid black;
+  margin: 3px 3px 3px 3px;
+}
+
+.extra4 {
+  border: 2px solid black;
+  margin: 3px 3px 3px 3px;
+}
+
+.text-button {
+  display: flex;
+  border-bottom: 2px solid black;
+}
+
+.description {
+  padding-right: 25px;
+  margin-top: -10px;
+  width: 620px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  margin: none;
+}
+
+.location {
+  width: 600px;
+  margin-top: -16px;
+  padding-bottom: 15px;
+}

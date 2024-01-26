@@ -2,8 +2,9 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useState } from "react";
 import { deleteCurrentSpot } from "../../store/spots";
+import "./DeleteSpot.css";
 
-function DeleteModal({ spot }) {
+function DeleteSpot({ spot }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [spotExists, setSpotExists] = useState(true);
@@ -23,7 +24,7 @@ function DeleteModal({ spot }) {
   return (
     <div>
       {spotExists && (
-        <div className="deleteContainer">
+        <div className="delete-container">
           <h2 className="confirm">Confirm Delete</h2>
           <p className="confirmation">
             Are you sure you want to remove this spot from the listings?
@@ -31,7 +32,7 @@ function DeleteModal({ spot }) {
           <button className="delete" onClick={delSpotModal}>
             Yes (Delete Spot)
           </button>
-          <button className="dontDelete" onClick={cancelDelete}>
+          <button className="dont-delete" onClick={cancelDelete}>
             No (Keep Spot)
           </button>
         </div>
@@ -40,4 +41,4 @@ function DeleteModal({ spot }) {
   );
 }
 
-export default DeleteModal;
+export default DeleteSpot;

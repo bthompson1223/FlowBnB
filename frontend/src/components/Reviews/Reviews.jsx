@@ -4,6 +4,7 @@ import { fetchReviews, returnInitial } from "../../store/reviews";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import CreateReviewModal from "../CreateReview/CreateReview";
 import DeleteReview from "../DeleteReview/DeleteReview";
+import "./Reviews.css";
 
 function Reviews({ spotId }) {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ function Reviews({ spotId }) {
   const currReviews = useSelector((state) => state.reviews.spot.Reviews);
   const currUser = useSelector((state) => state.session.user);
 
-  console.log("spot: ", spot);
+  //   console.log("spot: ", spot);
   //   console.log("revs: ", currReviews);
   // console.log("user: ", currUser)
 
@@ -37,7 +38,7 @@ function Reviews({ spotId }) {
   }, [dispatch, spotId]);
 
   if (!spot) return null;
-  if (!currReviews || !currReviews.length) return null;
+  if (!currReviews) return null;
   // if (!currUser) return null
 
   const orderRevs = [...currReviews].sort(
@@ -72,10 +73,10 @@ function Reviews({ spotId }) {
   if (!currReviews.length) {
     return (
       <div className="revBox">
-        <div className="revHeader">
+        <div className="rev-header">
           <i className="fa-solid fa-star"></i>
 
-          <p className="revsLabel">New</p>
+          <p className="reviews-label">New</p>
         </div>
         {loggedIn && !ownerCheck && notReviewedState && (
           <div className="postARev">
@@ -87,7 +88,7 @@ function Reviews({ spotId }) {
           </div>
         )}
         {!ownerCheck && loggedIn && notReviewedState && (
-          <p className="firstRev">Be the first to post a review!</p>
+          <p className="first-rev">Be the first to post a review!</p>
         )}
       </div>
     );
@@ -95,36 +96,36 @@ function Reviews({ spotId }) {
 
   return (
     <div className="revBox">
-      <div className="revHeader">
-        <i id="revDisplayStar" className="fa-solid fa-star"></i>
-        <div className="avgRate">
+      <div className="rev-header">
+        <i id="rev-display-star" className="fa-solid fa-star"></i>
+        <div className="avg-rating">
           {currReviews.length && spot?.avgStarRating?.toFixed(1)}
         </div>
         <div>•</div>
-        <div className="revNumDisp"> {spot.numReviews} </div>
-        <div className="revLabelDisp"> {reviewsLabel}</div>
+        <div className="rev-num-disp"> {spot.numReviews} </div>
+        <div className="rev-label-disp"> {reviewsLabel}</div>
       </div>
       {loggedIn && !ownerCheck && notReviewedState && (
         <OpenModalButton
-          className="postRevButton"
+          className="post-rev-button"
           buttonText="Post Your Review"
           modalComponent={<CreateReviewModal spot={spot} user={currUser} />}
         />
       )}
-      <div className="reviewList">
+      <div className="review-list">
         {orderRevs
           .map((review) => (
-            <div key={review.id} className="singleRev">
-              <div className="userDisplay">{review.User.firstName}</div>
+            <div key={review.id} className="single-rev">
+              <div className="user-display">{review.User.firstName}</div>
               <div className="date">
                 <div className="month">
                   {months[new Date(review.createdAt).getMonth()]}
                 </div>
                 <div className="year">{review.createdAt.slice(6, 10)}</div>
               </div>
-              <div className="revText">{review.review}</div>
+              <div className="review-text">{review.review}</div>
               {currUser && currUser.id === review.User.id ? (
-                <div className="delRevButtonBox">
+                <div className="del-rev-button-box">
                   <OpenModalButton
                     className="delRevButton"
                     buttonText="Delete Review"

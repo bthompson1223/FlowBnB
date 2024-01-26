@@ -47,26 +47,24 @@ function ProfileButton({ user }) {
     <>
       <button onClick={toggleMenu} className="menu">
         <i className="fas fa-user-circle" />
-        {/* <i className="fa-solid fa-bars"></i> */}
-        {/* <i className="fa-regular fa-user"></i> */}
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
             <li className="text">Hello, {user.username}</li>
-            <li className="textEm">{user.email}</li>
-            <ul className="manageSpots">
+            <li className="text-email">{user.email}</li>
+            <ul className="manage-spots">
               {" "}
               <NavLink
                 to="/spots/current"
                 onClick={toggleMenu}
-                className="manageNav"
+                className="manage-nav"
               >
                 Manage Spots
               </NavLink>
             </ul>
-            <li>
-              <button onClick={logout} className="loButton">
+            <li className="logout-button">
+              <button onClick={logout} className="lo-button">
                 Log Out
               </button>
             </li>

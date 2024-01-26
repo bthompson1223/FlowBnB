@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchSpotDetails, spotUpdate } from "../../store/spots";
+import "./UpdateSpot.css";
 
 function UpdateSpot() {
   const dispatch = useDispatch();
@@ -38,20 +39,22 @@ function UpdateSpot() {
   }, [dispatch, spotId]);
 
   useEffect(() => {
-    setCountry(spot.country || "");
-    setAddress(spot.address || "");
-    setCity(spot.city || "");
-    setState(spot.state || "");
-    setLat(spot.lat || 0);
-    setLng(spot.lng || 0);
-    setDescription(spot.description || "");
-    setName(spot.name || "");
-    setPrice(spot.price || "");
-    setPrevImg(spot.previewImage || "");
-    setImgTwo(spot.imgTwo || "");
-    setImgThree(spot.imgThree || "");
-    setImgFour(spot.imgFour || "");
-    setImgFive(spot.imgFive || "");
+    if (spot.SpotImages) {
+      setCountry(spot.country || "");
+      setAddress(spot.address || "");
+      setCity(spot.city || "");
+      setState(spot.state || "");
+      setLat(spot.lat || 0);
+      setLng(spot.lng || 0);
+      setDescription(spot.description || "");
+      setName(spot.name || "");
+      setPrice(spot.price || "");
+      setPrevImg(spot?.SpotImages[0]?.url || "");
+      setImgTwo(spot.SpotImages[1]?.url || "");
+      setImgThree(spot.SpotImages[2]?.url || "");
+      setImgFour(spot.SpotImages[3]?.url || "");
+      setImgFive(spot.SpotImages[4]?.url || "");
+    }
   }, [spot]);
 
   function validateInputs() {
@@ -79,13 +82,13 @@ function UpdateSpot() {
       }
       if (!validExt) errs.push("Image must have a valid extension");
     }
-    console.log(errs);
+    // console.log(errs);
     setErrors(errs);
   }
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    console.log("handleUpdate is running");
+    // console.log("handleUpdate is running");
     if (!errors.length) {
       const updatedSpot = {
         country,
@@ -100,7 +103,7 @@ function UpdateSpot() {
       };
 
       const res = await dispatch(spotUpdate(updatedSpot, spot.id));
-      console.log(res);
+      // console.log(res);
 
       if (res) {
         navigate(`/spots/${res.id}`);
@@ -112,11 +115,11 @@ function UpdateSpot() {
   };
 
   return (
-    <div className="formContainer">
-      <form className="updateSpotForm" onSubmit={handleUpdate}>
-        <div className="firstBox">
-          <div className="formText">
-            <h1 className="udtHeader">Update a Spot</h1>
+    <div>
+      <form className="update-spot-form" onSubmit={handleUpdate}>
+        <div>
+          <div>
+            <h1>Update a Spot</h1>
             <h2>Wheres your place located?</h2>
             <p>
               Guests will only get your exact address once they booked a
@@ -124,8 +127,8 @@ function UpdateSpot() {
             </p>
           </div>
           <label>
-            <div className="titleAndErrors">
-              <p className="locaInputs">Country</p>
+            <div>
+              <p className="location-inputs">Country</p>
               <p className="error">
                 {errors.find((error) => error && error.includes("Country"))}
               </p>
@@ -133,15 +136,15 @@ function UpdateSpot() {
             <input
               type="text"
               placeholder="Country"
-              id="inputUpdate"
+              className="input-update"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
               required
             ></input>
           </label>
           <label>
-            <div className="titleAndErrors">
-              <p className="locaInputs">Address</p>
+            <div>
+              <p className="location-inputs">Address</p>
               <p className="error">
                 {errors.find((error) => error.includes("Address"))}
               </p>
@@ -149,14 +152,14 @@ function UpdateSpot() {
             <input
               type="text"
               placeholder="Address"
-              id="inputUpdate"
+              className="input-update"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             ></input>
           </label>
-          <label className="citystate">
-            <div className="titleAndErrors">
-              <p className="locaInputs">City</p>
+          <label className="city-state">
+            <div>
+              <p className="location-inputs">City</p>
               <p className="error">
                 {errors.find((error) => error.includes("Address"))}
               </p>
@@ -164,12 +167,12 @@ function UpdateSpot() {
             <input
               type="text"
               placeholder="City"
-              id="inputUpdate"
+              className="input-update"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             ></input>
-            <div className="titleAndErrors">
-              <p className="locaInputs">State</p>
+            <div>
+              <p className="location-inputs">State</p>
               <p className="error">
                 {errors.find((error) => error.includes("Address"))}
               </p>
@@ -178,14 +181,14 @@ function UpdateSpot() {
             <input
               type="text"
               placeholder="State"
-              id="inputUpdate"
+              className="input-update"
               value={state}
               onChange={(e) => setState(e.target.value)}
             ></input>
           </label>
-          <label className="latlng">
-            <div className="titleAndErrors">
-              <p className="locaInputs">Latitude</p>
+          <label className="lat-lng">
+            <div>
+              <p className="location-inputs">Latitude</p>
               <p className="error">
                 {errors.find((error) => error.includes("Latitude"))}
               </p>
@@ -193,12 +196,12 @@ function UpdateSpot() {
             <input
               type="text"
               placeholder="Latitude"
-              id="inputUpdate"
+              className="input-update"
               value={lat}
               onChange={(e) => setLat(e.target.value)}
             ></input>
-            <div className="titleAndErrors">
-              <p className="locaInputs">Longitude</p>
+            <div>
+              <p className="location-inputs">Longitude</p>
               <p className="error">
                 {errors.find((error) => error.includes("Longitude"))}
               </p>
@@ -206,7 +209,7 @@ function UpdateSpot() {
             <input
               type="text"
               placeholder="Longitude"
-              id="inputUpdate"
+              className="input-update"
               value={lng}
               onChange={(e) => setLng(e.target.value)}
             ></input>
@@ -218,8 +221,8 @@ function UpdateSpot() {
             Mention the best features of your space, any special amentities like
             fast wifi or parking, and what you love about the neighborhood
           </p>
-          <div className="titleAndErrors">
-            <p className="locaInputs">Description</p>
+          <div>
+            <p className="location-inputs">Description</p>
             <p className="error">
               {errors.find((error) => error.includes("Description"))}
             </p>
@@ -227,20 +230,19 @@ function UpdateSpot() {
           <textarea
             type="textarea"
             placeholder="Please write at least 30 characters"
-            id="inputUpdate"
-            className="descriptionUpdate"
+            className="description-update input-update"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
-        <div className="titleBox">
+        <div className="title-box">
           <h2>Create a title for your spot</h2>
           <p>
             Catch guests attention with a spot title that highlights what makes
             your place special.
           </p>
-          <div className="titleAndErrors">
-            <p className="locaInputs">Title</p>
+          <div>
+            <p className="location-inputs">Title</p>
             <p className="error">
               {errors.find((error) => error.includes("Title"))}
             </p>
@@ -248,40 +250,39 @@ function UpdateSpot() {
           <input
             type="text"
             placeholder="Name of your spot"
-            id="inputUpdate"
+            className="input-update"
             value={name}
             onChange={(e) => setName(e.target.value)}
           ></input>
         </div>
-        <div className="priceBox">
+        <div className="price-box">
           <h2>Set a base price for your spot</h2>
           <p>
             Competitive pricing can help your listing stand out and rank higher
             in search results.
           </p>
-          <div className="titleAndErrors">
-            <p className="locaInputs">Price</p>
+          <div>
+            <p className="location-inputs">Price</p>
             <p className="error">
               {errors.find((error) => error.includes("Price"))}
             </p>
           </div>
-          <div className="priceDiv">
+          <div className="price-div">
             ${" "}
             <input
               type="text"
               placeholder="Price per night(USD)"
-              id="inputUpdate"
-              className="priceInput"
+              className="price-input input-update"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             ></input>
           </div>
         </div>
-        <div className="updateImgs">
+        <div className="update-imgs">
           <h2>Liven up your spot with photos</h2>
           <p>Submit a link to at least one photo to publish your spot</p>
-          <div className="titleAndErrors">
-            <p className="locaInputs">Preview Image</p>
+          <div>
+            <p className="location-inputs">Preview Image</p>
             <p className="error">
               {errors.find((error) => error.includes("Preview"))}
             </p>
@@ -292,44 +293,44 @@ function UpdateSpot() {
           <input
             type="text"
             placeholder="Preview Image URL"
-            id="inputUpdate"
+            className="input-update"
             value={prevImg}
             onChange={(e) => setPrevImg(e.target.value)}
           ></input>
-          <p className="locaInputs">Image 1</p>
+          <p className="location-inputs">Image 1</p>
           <input
             type="text"
             placeholder="Image URL"
-            id="inputUpdate"
+            className="input-update"
             value={imgTwo}
             onChange={(e) => setImgTwo(e.target.value)}
           ></input>
-          <p className="locaInputs">Image 2</p>
+          <p className="location-inputs">Image 2</p>
           <input
             type="text"
             placeholder="Image URL"
-            id="inputUpdate"
+            className="input-update"
             value={imgThree}
             onChange={(e) => setImgThree(e.target.value)}
           ></input>
-          <p className="locaInputs">Image 3</p>
+          <p className="location-inputs">Image 3</p>
           <input
             type="text"
             placeholder="Image URL"
-            id="inputUpdate"
+            className="input-update"
             value={imgFour}
             onChange={(e) => setImgFour(e.target.value)}
           ></input>
-          <p className="locaInputs">Image 4</p>
+          <p className="location-inputs">Image 4</p>
           <input
             type="text"
             placeholder="Image URL"
-            id="inputUpdate"
+            className="input-update"
             value={imgFive}
             onChange={(e) => setImgFive(e.target.value)}
           ></input>
         </div>
-        <div className="casButton">
+        <div>
           <button type="submit" className="uas" onClick={validateInputs}>
             Update Spot
           </button>

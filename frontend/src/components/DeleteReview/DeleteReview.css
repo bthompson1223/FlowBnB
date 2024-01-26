@@ -1,0 +1,41 @@
+.delete-rev-modal {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: 200px;
+  align-content: center;
+  align-items: center;
+  border-radius: 15px;
+  font-family: sans-serif;
+}
+
+.delete-rev {
+  color: white;
+  background-color: #ff5a5a;
+  box-shadow: 2px 2px black;
+  border: 3px solid black;
+  width: 290px;
+  padding: 8px 12px 8px 12px;
+}
+
+.cancel-del {
+  color: white;
+  background-color: #414143;
+  box-shadow: 2px 2px black;
+  border: 3px solid black;
+  width: 290px;
+  margin-top: 10px;
+  padding: 8px 12px 8px 12px;
+}
+
+.delete-rev:hover {
+  cursor: pointer;
+}
+
+.cancel-del:hover {
+  cursor: pointer;
+}
+
+.confirmation-header {
+  margin-bottom: 0px;
+}

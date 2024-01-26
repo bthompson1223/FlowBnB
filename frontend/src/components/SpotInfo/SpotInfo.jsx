@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchSpotDetails } from "../../store/spots";
 import Reviews from "../Reviews/Reviews";
+import "./SpotInfo.css";
 
 function SpotInfo() {
   const { spotId } = useParams();
@@ -23,63 +24,50 @@ function SpotInfo() {
     spot.price = parseFloat(spot.price).toFixed(2);
   }
 
-  let reviewsLabel;
-  if (spot.numReviews === 1) reviewsLabel = "Review";
-  if (spot.numReviews > 1) reviewsLabel = "Reviews";
-  // if (spot.numReviews === 0) reviewsLabel = 'New'
-  let revNum = spot.numReviews;
-  if (spot.numReviews === 0) revNum = "";
-  let separator = "•";
-  if (!spot.numReviews) separator = "";
-
   return (
-    <div id="spotInfoDisplay">
-      <h1 className="spotName">{spot.name}</h1>
-      <div className="loca">
+    <div id="spot-info-display">
+      <h1 className="spot-name">{spot.name}</h1>
+      <div className="location">
         {spot.city}, {spot.state}, {spot.country}
       </div>
       <div className="imgs">
-        <div className="mainImgSec">
+        <div className="main-img-sec">
           {" "}
-          <img src={spot.SpotImages[0].url} className="mainImg" />{" "}
+          <img src={spot.SpotImages[0].url} className="main-img" />{" "}
         </div>
         <div className="extras">
-          <div className="otherImgs">
+          <div className="other-imgs">
             {spot.SpotImages[1] && (
               <img
                 src={spot.SpotImages[1].url}
-                id="additionalImg"
-                className="extra1"
+                className="extra1 additional-img"
               />
             )}
             {spot.SpotImages[2] && (
               <img
                 src={spot.SpotImages[2].url}
-                id="additionalImg"
-                className="extra2"
+                className="extra2 additional-img"
               />
             )}
           </div>
-          <div className="otherImgs2">
+          <div className="other-imgs2">
             {spot.SpotImages[3] && (
               <img
                 src={spot.SpotImages[3].url}
-                id="additionalImg"
-                className="extra3"
+                className="extra3 additional-img"
               />
             )}
             {spot.SpotImages[4] && (
               <img
                 src={spot.SpotImages[4].url}
-                id="additionalImg"
-                className="extra4"
+                className="extra4 additional-img"
               />
             )}
           </div>
         </div>
       </div>
-      <div className="descRes">
-        <div className="textAndButton">
+      <div className="desc-res">
+        <div className="text-button">
           <div className="details">
             <h2 className="ownerName">
               Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
@@ -87,24 +75,12 @@ function SpotInfo() {
             <p className="description">{spot.description}</p>
           </div>
           <div className="reserve">
-            <div className="notButton">
-              <div className="resInfo">
+            <div className="not-button">
+              <div className="res-info">
                 <div className="priceRevs"> ${spot.price} night </div>
-                <div className="reviewInfo">
-                  <i className="fa-solid fa-star"></i>
-                  {typeof spot.avgStarRating === "number" ? (
-                    <p>{parseFloat(spot.avgStarRating).toFixed(1)}</p>
-                  ) : (
-                    <p>New</p>
-                  )}
-                  <div className="dot">{separator}</div>
-                  <div className="numRevs">
-                    {revNum} {reviewsLabel}
-                  </div>
-                </div>
               </div>
             </div>
-            <button className="resButton" onClick={showAlert}>
+            <button className="res-button" onClick={showAlert}>
               Reserve
             </button>
           </div>

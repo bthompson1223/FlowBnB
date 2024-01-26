@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { createNewReview, fetchReviews } from "../../store/reviews";
 import * as sessionActions from "../../store/reviews";
+import "./CreateReview.css";
 
-function CreateReviewModal({ spot, user }) {
+function CreateReview({ spot, user }) {
   const dispatch = useDispatch();
   const spotId = useSelector((state) => state.spots.currSpot.id);
 
@@ -18,8 +19,8 @@ function CreateReviewModal({ spot, user }) {
     setStars(e.target.id);
   };
 
-  const handleSubmit = async () => {
-    // e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     const newRev = {
       userId: user.id,
@@ -38,18 +39,18 @@ function CreateReviewModal({ spot, user }) {
     return res;
   };
   return (
-    <div className="createRevModalCont">
-      <h1 className="stayHeader">How was your stay?</h1>
+    <div className="create-review-content">
+      <h1 className="stay-header">How was your stay?</h1>
       <form onSubmit={handleSubmit} className="revModalForm">
         <textarea
-          className="revTxt"
+          className="rev-text"
           type="text"
           value={reviewText}
           onChange={(e) => setReviewText(e.target.value)}
           placeholder="Leave your review here..."
           required
         />
-        <div className="starBox">
+        <div className="star-box">
           <i
             id="1"
             className={stars > 0 ? "fa-solid fa-star" : "fa-regular fa-star"}
@@ -75,10 +76,10 @@ function CreateReviewModal({ spot, user }) {
             className={stars > 4 ? "fa-solid fa-star" : "fa-regular fa-star"}
             onClick={setRating}
           ></i>
-          <p className="starLabel">Stars</p>
+          <p className="star-label">Stars</p>
         </div>
         <button
-          className="subRevButton"
+          className="submit-rev-button"
           disabled={reviewText.length < 10 || stars < 1}
         >
           Submit Your Review
@@ -88,4 +89,4 @@ function CreateReviewModal({ spot, user }) {
   );
 }
 
-export default CreateReviewModal;
+export default CreateReview;

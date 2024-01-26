@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllSpots } from "../../store/spots";
 import { NavLink } from "react-router-dom";
-import DeleteModal from "../DeleteModal/DeleteModal";
+import DeleteSpot from "../DeleteSpot/DeleteSpot";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import "./ManageSpots.css";
 
 function ManageSpots() {
   const dispatch = useDispatch();
@@ -28,21 +29,27 @@ function ManageSpots() {
     (spot) => spot.ownerId === user.id
   );
 
+  usersSpots.forEach((spot) => {
+    if (spot?.price) {
+      spot.price = parseFloat(spot.price).toFixed(2);
+    }
+  });
+
   const usersSpotsDisplay = usersSpots?.map((spot) => (
-    <div key={spot?.id} className="spotContain">
+    <div key={spot?.id} className="spot-contain">
       <NavLink to={`/spots/${spot.id}`}>
-        <div className="imgContainer">
+        <div className="img-container">
           <div className="toolTip" title={spot.name}>
-            <img src={spot.previewImage} className="prevImg" />
+            <img src={spot.previewImage} className="prev-img" />
           </div>
         </div>
-        <div className="locationPrice">
+        <div className="location-price">
           <p className="location">
             {spot.city}, {spot.state}
           </p>
           <p className="price">${spot.price} night</p>
         </div>
-        <div className="reviewSection">
+        <div className="review-section">
           <div className="reviews">
             <i className="fa-solid fa-star"></i>
             {typeof spot.avgRating === "number" ? (
@@ -53,30 +60,30 @@ function ManageSpots() {
           </div>
         </div>
       </NavLink>
-      <div className="updateDelete">
-        <button className="updateASpot">
-          <NavLink to={`/spots/${spot.id}/edit`} className="updateNavLink">
+      <div className="update-delete">
+        <button className="update-spot">
+          <NavLink to={`/spots/${spot.id}/edit`} className="update-nav-link">
             Update
           </NavLink>
         </button>
-        <div className="deleteButton">
+        <div className="delete-button">
           <OpenModalButton
             buttonText={"Delete"}
-            modalComponent={<DeleteModal spot={spot} />}
+            modalComponent={<DeleteSpot spot={spot} />}
           />
         </div>
       </div>
     </div>
   ));
   return (
-    <div className="mainManageBox">
-      <div className="headerCreate">
-        <h1 className="manageHeader">Manage Spots</h1>
-        <NavLink to="/spots/new" className="newSpotManage">
+    <div className="main-manage-box">
+      <div className="header-create">
+        <h1 className="manage-header">Manage Spots</h1>
+        <NavLink to="/spots/new" className="new-spot-manage">
           Create A Spot
         </NavLink>
       </div>
-      <div className="returnPage">
+      <div className="return-page">
         <div className="manage">{usersSpotsDisplay}</div>
       </div>
     </div>

@@ -1,0 +1,59 @@
+.stay-header {
+  font-family: sans-serif;
+  font-size: 26px;
+}
+
+.create-review-content {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 400px;
+  align-items: center;
+}
+
+.rev-text {
+  display: flex;
+  width: 370px;
+  height: 120px;
+  margin-left: 12px;
+  background-color: #c4dace;
+}
+
+.star-box {
+  display: inline-flex;
+  width: 400px;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.star-label {
+  padding-left: 5px;
+  padding-top: 12px;
+  font-family: sans-serif;
+}
+
+.submit-rev-button {
+  display: flex;
+  width: 350px;
+  margin-left: 25px;
+  justify-content: center;
+  box-shadow: 2px 2px darkgray;
+  border: 3px solid darkgray;
+  padding: 12px 0px 12px 0px;
+}
+
+.submit-rev-button:enabled:hover {
+  cursor: pointer;
+}
+
+.submit-rev-button:enabled {
+  color: white;
+  background-color: #1a5824;
+  box-shadow: 2px 2px black;
+  border: 3px solid black;
+}
+
+.fa-regular.fa-star {
+  padding-top: 12px;
+}

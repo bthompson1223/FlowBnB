@@ -1,0 +1,75 @@
+.revBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.rev-header {
+  display: inline-flex;
+  align-content: center;
+  align-items: center;
+  height: 40px;
+}
+
+.rev-header .fa-solid.fa-star {
+  padding-top: 0px;
+}
+
+.button {
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 4px 8px 4px 8px;
+  background-color: #1a5824;
+  margin-bottom: 3px;
+  color: white;
+  max-width: fit-content;
+}
+
+.single-rev {
+  margin-bottom: 20px;
+  font-family: sans-serif;
+}
+
+.date {
+  display: inline-flex;
+  gap: 5px;
+  font-size: 16px;
+  color: gray;
+}
+
+.user-display {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.avg-rating {
+  padding-right: 8px;
+  font-weight: bold;
+}
+
+.rev-num-disp {
+  padding-left: 8px;
+  font-weight: bold;
+  gap: 10px;
+}
+
+.rev-label-disp {
+  padding-left: 5px;
+  font-weight: bold;
+}
+
+.review-text {
+  font-size: 16px;
+}
+
+.first-rev {
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+.reviews-label {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  padding-top: 2px;
+}

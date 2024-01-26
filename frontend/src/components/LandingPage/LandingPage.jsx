@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { fetchAllSpots } from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import "./LandingPage.css";
 
 function LandingPage() {
   const dispatch = useDispatch();
@@ -21,11 +22,11 @@ function LandingPage() {
   const spotsContainer =
     spots.allSpots.Spots &&
     spots?.allSpots?.Spots.map((spot) => (
-      <div key={spot.id} className="spotContainer">
+      <div key={spot.id} className="spot-container">
         <NavLink to={`/spots/${spot.id}`}>
-          <div className="imgContainer">
+          <div>
             <div className="toolTip" title={spot.name}>
-              <img src={spot.previewImage} className="prevImg" />
+              <img src={spot.previewImage} className="prev-img" />
             </div>
           </div>
           <div className="location-price">
@@ -34,7 +35,7 @@ function LandingPage() {
             </p>
             <p className="price">${spot.price} night</p>
           </div>
-          <div className="reviewSection">
+          <div className="review-section">
             <div className="reviews">
               <i className="fa-solid fa-star"></i>
               {typeof spot.avgRating === "number" ? (
@@ -48,7 +49,11 @@ function LandingPage() {
       </div>
     ));
 
-  return <div>{spotsContainer}</div>;
+  return (
+    <div className="page-return">
+      <div className="home">{spotsContainer}</div>
+    </div>
+  );
 }
 
 export default LandingPage;
