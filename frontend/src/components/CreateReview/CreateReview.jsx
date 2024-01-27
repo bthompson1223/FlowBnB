@@ -11,6 +11,7 @@ function CreateReview({ spot, user }) {
 
   const [reviewText, setReviewText] = useState("");
   const [stars, setStars] = useState("");
+  const [errs, setErrs] = useState({});
 
   const { closeModal } = useModal();
 
@@ -19,28 +20,41 @@ function CreateReview({ spot, user }) {
     setStars(e.target.id);
   };
 
+  const validateSubmit = () => {
+    if (reviewText.length > 250)
+      setErrs({ review: "Review must be less than 250 characters" });
+    else setErrs({});
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newRev = {
-      userId: user.id,
-      spotId: spot.id,
-      review: reviewText,
-      stars,
-    };
-    const res = await dispatch(createNewReview(newRev, spotId));
-    await dispatch(sessionActions.fetchReviews(spotId));
-    await dispatch(fetchReviews(spotId));
+    if (!errs.review) {
+      const newRev = {
+        userId: user.id,
+        spotId: spot.id,
+        review: reviewText,
+        stars,
+      };
+      const res = await dispatch(createNewReview(newRev, spotId));
+      await dispatch(sessionActions.fetchReviews(spotId));
+      await dispatch(fetchReviews(spotId));
 
-    closeModal();
-    setReviewText("");
-    setStars(0);
+      closeModal();
+      setReviewText("");
+      setStars(0);
 
-    return res;
+      return res;
+    }
   };
+
+  console.log("errs =>", errs);
   return (
     <div className="create-review-content">
       <h1 className="stay-header">How was your stay?</h1>
+      {errs.review && (
+        <div className="error">Review must be less than 250 characters.</div>
+      )}
       <form onSubmit={handleSubmit} className="revModalForm">
         <textarea
           className="rev-text"
@@ -81,6 +95,7 @@ function CreateReview({ spot, user }) {
         <button
           className="submit-rev-button"
           disabled={reviewText.length < 10 || stars < 1}
+          onClick={validateSubmit}
         >
           Submit Your Review
         </button>

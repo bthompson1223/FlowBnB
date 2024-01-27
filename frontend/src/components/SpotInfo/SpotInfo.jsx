@@ -22,11 +22,13 @@ function SpotInfo() {
   }, [spotId, dispatch]);
   if (!spot) return null;
   if (!spot.SpotImages) return null;
+  if (!spot.SpotImages[0].url) return null;
   if (spot.id !== parseInt(spotId)) return null;
   // if (!currReviews) return null;
   const showAlert = () => {
     alert("Feature Coming Soon");
   };
+
   // console.log("Curr reviews =>", currReviews);
   if (spot?.price) {
     spot.price = parseFloat(spot.price).toFixed(2);
