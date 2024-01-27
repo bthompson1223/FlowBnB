@@ -48,7 +48,7 @@ function CreateReview({ spot, user }) {
     }
   };
 
-  console.log("errs =>", errs);
+  // console.log("errs =>", errs);
   return (
     <div className="create-review-content">
       <h1 className="stay-header">How was your stay?</h1>
