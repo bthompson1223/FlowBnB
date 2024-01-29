@@ -20,20 +20,20 @@ function UpdateSpot() {
   const [description, setDescription] = useState(spot.description);
   const [name, setName] = useState(spot.name);
   const [price, setPrice] = useState(spot.price);
-  const [prevImg, setPrevImg] = useState(spot.previewImage || "");
-  const [imgTwo, setImgTwo] = useState(spot.imgTwo || "");
-  const [imgThree, setImgThree] = useState(spot.imgThree || "");
-  const [imgFour, setImgFour] = useState(spot.imgFour || "");
-  const [imgFive, setImgFive] = useState(spot.imgFive || "");
+  // const [prevImg, setPrevImg] = useState(spot.previewImage || "");
+  // const [imgTwo, setImgTwo] = useState(spot.imgTwo || "");
+  // const [imgThree, setImgThree] = useState(spot.imgThree || "");
+  // const [imgFour, setImgFour] = useState(spot.imgFour || "");
+  // const [imgFive, setImgFive] = useState(spot.imgFive || "");
   const [errors, setErrors] = useState([]);
   const allowedExtentions = [".jpg", ".jpeg", ".png"];
   const errs = [];
   const imgs = [];
-  if (prevImg) imgs.push(prevImg);
-  if (imgTwo) imgs.push(imgTwo);
-  if (imgThree) imgs.push(imgThree);
-  if (imgFour) imgs.push(imgFour);
-  if (imgFive) imgs.push(imgFive);
+  // if (prevImg) imgs.push(prevImg);
+  // if (imgTwo) imgs.push(imgTwo);
+  // if (imgThree) imgs.push(imgThree);
+  // if (imgFour) imgs.push(imgFour);
+  // if (imgFive) imgs.push(imgFive);
   useEffect(() => {
     dispatch(fetchSpotDetails(spotId));
   }, [dispatch, spotId]);
@@ -49,11 +49,11 @@ function UpdateSpot() {
       setDescription(spot.description || "");
       setName(spot.name || "");
       setPrice(spot.price || "");
-      setPrevImg(spot?.SpotImages[0]?.url || "");
-      setImgTwo(spot.SpotImages[1]?.url || "");
-      setImgThree(spot.SpotImages[2]?.url || "");
-      setImgFour(spot.SpotImages[3]?.url || "");
-      setImgFive(spot.SpotImages[4]?.url || "");
+      // setPrevImg(spot?.SpotImages[0]?.url || "");
+      // setImgTwo(spot.SpotImages[1]?.url || "");
+      // setImgThree(spot.SpotImages[2]?.url || "");
+      // setImgFour(spot.SpotImages[3]?.url || "");
+      // setImgFive(spot.SpotImages[4]?.url || "");
     }
   }, [spot]);
 
@@ -69,7 +69,7 @@ function UpdateSpot() {
       errs.push("Description must be at least 30 characters");
     if (!name) errs.push("Title is required");
     if (!price) errs.push("Price is required");
-    if (!prevImg) errs.push("Preview image is required");
+    // if (!prevImg) errs.push("Preview image is required");
     for (let i = 0; i < imgs.length; i++) {
       const lowerImg = imgs[i].toLowerCase();
       let validExt = false;
@@ -278,8 +278,8 @@ function UpdateSpot() {
             ></input>
           </div>
         </div>
-        <div className="update-imgs">
-          <h2>Liven up your spot with photos</h2>
+        {/* <div className="update-imgs"> */}
+        {/* <h2>Liven up your spot with photos</h2>
           <p>Submit a link to at least one photo to publish your spot</p>
           <div>
             <p className="location-inputs">Preview Image</p>
@@ -289,8 +289,8 @@ function UpdateSpot() {
             <p className="error">
               {errors.find((error) => error.includes("Image"))}
             </p>
-          </div>
-          <input
+          </div> */}
+        {/* <input
             type="text"
             placeholder="Preview Image URL"
             className="input-update"
@@ -328,8 +328,8 @@ function UpdateSpot() {
             className="input-update"
             value={imgFive}
             onChange={(e) => setImgFive(e.target.value)}
-          ></input>
-        </div>
+          ></input> */}
+        {/* </div> */}
         <div>
           <button type="submit" className="uas" onClick={validateInputs}>
             Update Your Spot
